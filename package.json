@@ -1,0 +1,28 @@
+{
+  "name": "docker_node",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --legacy-watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pedrohfzip/docker_node.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pedrohfzip/docker_node.js/issues"
+  },
+  "homepage": "https://github.com/Pedrohfzip/docker_node.js#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
