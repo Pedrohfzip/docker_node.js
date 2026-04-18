@@ -1,56 +1,57 @@
 # Docker — Node App
- 
+
 ## Comandos
- 
+
 **Build**
 ```bash
 docker build -t node-app .
 ```
 Cria a imagem a partir do Dockerfile. `-t` define o nome da imagem.
- 
+
 ---
- 
+
 **Criar e rodar container**
 ```bash
-docker run -v ${PWD}:/app -v /app/node_modules -p 3000:3000 -d --name node-app-container node-app
+docker run -v ${PWD}:/app:ro -v /app/node_modules --env-file ./.env -p 3000:3000 -d --name node-app-container node-app
 ```
 | Flag | O que faz |
 |------|-----------|
-| `-v ${PWD}:/app` | Sincroniza a pasta local com `/app` no container (hot-reload) |
+| `-v ${PWD}:/app:ro` | Sincroniza a pasta local com `/app` em modo **read-only** — o container não pode alterar arquivos do host |
 | `-v /app/node_modules` | Preserva o `node_modules` da imagem, evitando ser sobrescrito |
+| `--env-file ./.env` | Carrega variáveis de ambiente do arquivo `.env` para dentro do container |
 | `-p 3000:3000` | Mapeia a porta do container para a máquina (`host:container`) |
 | `-d` | Roda em segundo plano |
 | `--name` | Nomeia o container para uso nos demais comandos |
- 
+
 ---
- 
+
 **Acessar o container**
 ```bash
 docker exec -it node-app-container bash
 ```
 Abre um terminal interativo dentro do container. Use `sh` em imagens sem bash.
- 
+
 ---
- 
+
 **Deletar container**
 ```bash
 docker rm node-app-container -f
 ```
 Remove o container. `-f` força a remoção mesmo se estiver rodando.
- 
+
 ---
- 
+
 **Ver logs**
 ```bash
 docker logs node-app-container
 # Tempo real:
 docker logs -f node-app-container
 ```
- 
+
 ---
- 
+
 ## Dockerfile
- 
+
 ```dockerfile
 FROM node:22          # imagem base oficial do Node 22
 WORKDIR /app          # diretório de trabalho dentro do container
